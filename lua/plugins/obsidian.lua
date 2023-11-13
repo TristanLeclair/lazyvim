@@ -1,0 +1,59 @@
+require("which-key").register({
+  ["<leader>o"] = {
+    name = "+obsidian",
+  },
+})
+
+vim.keymap.set("n", "gd", function()
+  if require("obsidian").util.cursor_on_markdown_link() then
+    return "<cmd>ObsidianFollowLink<CR>"
+  else
+    return "gd"
+  end
+end, {
+  expr = true,
+  noremap = false,
+})
+
+local path_to_vaults = "/mnt/c/Users/trist/ObsidianVaults/"
+local DndVault = path_to_vaults .. "DndVault"
+
+return {
+  "epwalsh/obsidian.nvim",
+  version = "*", -- recommended, use latest release instead of latest commit
+  lazy = true,
+  event = {
+    -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+    -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
+    "BufReadPre "
+      .. DndVault
+      .. "/**.md",
+    "BufNewFile " .. DndVault .. "/**.md",
+  },
+  dependencies = {
+    -- Required.
+    "nvim-lua/plenary.nvim",
+
+    -- see below for full list of optional dependencies 👇
+    "hrsh7th/nvim-cmp",
+    "nvim-telescope/telescope.nvim",
+  },
+  opts = {
+    workspaces = {
+      {
+        name = "Dnd",
+        path = "/mnt/c/Users/trist/ObsidianVaults/DndVault",
+      },
+    },
+
+    -- see below for full list of options 👇
+  },
+  keys = {
+    { "<leader>on", "<cmd>ObsidianNew<CR>", desc = "New note" },
+    { "<leader>of", "<cmd>ObsidianSearch<CR>", desc = "Find note" },
+    { "<leader>ot", "<cmd>ObsidianTemplate<CR>", desc = "Templates" },
+    { "<leader>ol", "<cmd>ObsidianLink<CR>", desc = "Link" },
+    { "<leader>or", "<cmd>ObsidianBacklinks<CR>", desc = "Backlinks" },
+    { "<leader>od", "<cmd>ObsidianFollowLink<CR>", desc = "Follow link (goto)" },
+  },
+}
