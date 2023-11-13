@@ -15,8 +15,13 @@ end, {
   noremap = false,
 })
 
-local path_to_vaults = "/mnt/c/Users/trist/ObsidianVaults/"
-local DndVault = path_to_vaults .. "DndVault"
+local path_to_vaults = ""
+if vim.fn.has("wsl") == 1 then
+  path_to_vaults = "/mnt/c/Users/trist/ObsidianVaults/"
+else
+  path_to_vaults = "C:/Users/trist/ObsidianVaults/"
+end
+local DndVault = path_to_vaults .. "DndVault/"
 
 return {
   "epwalsh/obsidian.nvim",
@@ -26,9 +31,9 @@ return {
     -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
     -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
     "BufReadPre "
-      .. DndVault
+      .. path_to_vaults
       .. "/**.md",
-    "BufNewFile " .. DndVault .. "/**.md",
+    "BufNewFile " .. path_to_vaults .. "/**.md",
   },
   dependencies = {
     -- Required.
@@ -41,8 +46,8 @@ return {
   opts = {
     workspaces = {
       {
-        name = "Dnd",
-        path = "/mnt/c/Users/trist/ObsidianVaults/DndVault",
+        name = "DndVault",
+        path = DndVault,
       },
     },
 

@@ -3,7 +3,7 @@ return {
   dependencies = { "nvim-telescope/telescope.nvim" },
   config = function()
     require("obsidian-bridge").setup({
-      obsidian_server_address = "https://localhost:27124",
+      obsidian_server_address = "http://localhost:27123",
       scroll_sync = true,
     })
   end,
