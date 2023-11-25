@@ -27,6 +27,10 @@ keymap("n", "sq", "<C-W>c", { desc = "Close split" })
 -- Lazy
 keymap("n", "<leader>p", "<cmd>Lazy<CR>", { desc = "Lazy" })
 
+-- Better scrolling
+keymap("n", "<C-u>", "<C-u>zz", { desc = "Scroll up" })
+keymap("n", "<C-d>", "<C-d>zz", { desc = "Scroll down" })
+
 -- Terminal
 local lazyterm = function()
   Util.terminal(nil, { cwd = Util.root() })
@@ -35,3 +39,7 @@ keymap("n", "<C-\\>", lazyterm, { desc = "Terminal (root dir)" })
 keymap("n", "<leader><C-\\>", function()
   Util.terminal()
 end, { desc = "Terminal (cwd)" })
+
+-- Buffer
+
+keymap("i", "<C-r>f", '<C-r>=expand("%:t:r")<CR>', { desc = "Paste only filename" })
