@@ -43,3 +43,31 @@ end, { desc = "Terminal (cwd)" })
 -- Buffer
 
 keymap("i", "<C-r>f", '<C-r>=expand("%:t:r")<CR>', { desc = "Paste only filename" })
+
+-- Remap lsp keys
+
+deletemap("n", "<leader>cf")
+deletemap("n", "<leader>cF")
+deletemap("n", "<leader>cd")
+deletemap("n", "<leader>cm")
+
+keymap({ "n", "v" }, "<leader>lf", function()
+  Util.format({ force = true })
+end, { desc = "Format" })
+
+-- diagnostic
+local diagnostic_goto = function(next, severity)
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    go({ severity = severity })
+  end
+end
+
+keymap("n", "<leader>ld", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+keymap("n", "<leader>lj", diagnostic_goto(true), { desc = "Next Diagnostic" })
+keymap("n", "<leader>lk", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+
+keymap("n", "<leader>lR", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "References" })
+keymap("n", "<leader>lm", "<cmd>Mason<CR>", { desc = "Mason" })
+keymap("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", { desc = "Code action" })
