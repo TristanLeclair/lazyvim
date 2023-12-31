@@ -1,5 +1,6 @@
 return {
   "mrjones2014/smart-splits.nvim",
+  enabled = (os.getenv("TERM_PROGRAM") == "WezTerm"),
   keys = {
     {
       "n",
