@@ -51,6 +51,20 @@ return {
       },
     },
 
+    follow_url_func = function(url)
+      -- Open the url in a new tab
+      if vim.fn.has("win32") == 1 then
+        vim.fn.jobstart("cmd.exe /C start " .. url)
+      else
+        vim.fn.jobstart("xdg-open " .. url)
+      end
+    end,
+
+    completion = {
+      nvim_cmp = true,
+      min_chars = 2,
+    },
+
     -- see below for full list of options 👇
   },
   keys = {
