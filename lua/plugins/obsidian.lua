@@ -50,6 +50,9 @@ return {
         path = DndVault,
       },
     },
+    templates = {
+      subdir = "z_Templates",
+    },
 
     follow_url_func = function(url)
       -- Open the url in a new tab
